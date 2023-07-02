@@ -1,0 +1,26 @@
+name: Test
+version: '${project.version}'
+main: test.test.Test
+api-version: 1.18
+commands:
+  kit:
+    description: Your description
+    usage: /kit
+  ZW:
+    description: Your description
+    usage: /zw
+  Scroll:
+    description: give you scroll
+    usage: /Scroll
+  fr:
+    description: Your description
+    usage: /fr
+  Titan:
+    description: spawns titan
+    usage: /Titan
+  AC:
+    description: Your description
+    usage: /ac
+  Skilra:
+    description: SKilllllra
+    usage: /Skilra
