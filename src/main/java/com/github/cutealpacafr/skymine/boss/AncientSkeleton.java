@@ -1,11 +1,15 @@
-package test.test;
+package com.github.cutealpacafr.skymine.boss;
 
+import com.github.cutealpacafr.skymine.util.NotNull;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -30,8 +34,6 @@ public class AncientSkeleton implements CommandExecutor, Listener {
         this._plugin = plugin;
     }
 
-    //{!e,e!oper
-    //A|p@c@
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
             player.getWorld().spawn(player.getLocation(), WitherSkeleton.class, Sheep1 -> {

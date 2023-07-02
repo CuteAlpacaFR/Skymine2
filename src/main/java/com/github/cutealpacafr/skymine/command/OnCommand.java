@@ -1,11 +1,12 @@
-package test.test;
+package com.github.cutealpacafr.skymine.command;
 
 
+import com.github.cutealpacafr.skymine.util.NotNull;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -15,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 //where tf
 public class OnCommand implements CommandExecutor, Listener {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd,@NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         System.out.println("debug1");
         if (sender instanceof Player) {
             System.out.println("debug2");

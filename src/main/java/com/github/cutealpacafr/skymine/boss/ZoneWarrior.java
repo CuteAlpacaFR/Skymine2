@@ -1,11 +1,15 @@
-package test.test;
+package com.github.cutealpacafr.skymine.boss;
 
-import org.bukkit.*;
+import com.github.cutealpacafr.skymine.util.NotNull;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -14,11 +18,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ZoneWarrior implements CommandExecutor, Listener {
     @Override
-    public boolean onCommand(@NotNull CommandSender Sender,@NotNull Command command,@NotNull String s, String[] strings) {
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command command, @NotNull String s, String[] strings) {
         if (Sender instanceof Player player) {
             player.getWorld().spawn(player.getLocation(), Zombie.class, Sheep -> {
                 Sheep.setCustomName("§4☠ §c✦Zone Warrior✦ §4☠");

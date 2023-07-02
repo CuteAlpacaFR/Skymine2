@@ -1,5 +1,6 @@
-package test.test;
+package com.github.cutealpacafr.skymine.boss;
 
+import com.github.cutealpacafr.skymine.util.NotNull;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;

@@ -1,11 +1,17 @@
-package test.test;
+package com.github.cutealpacafr.skymine;
 
+import com.github.cutealpacafr.skymine.boss.AncientSkeleton;
+import com.github.cutealpacafr.skymine.boss.Skilra;
+import com.github.cutealpacafr.skymine.boss.Titan;
+import com.github.cutealpacafr.skymine.boss.ZoneWarrior;
+import com.github.cutealpacafr.skymine.command.OnCommand;
+import com.github.cutealpacafr.skymine.equipment.weapon.Sword;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
 
-public final class Test extends JavaPlugin {
+public final class SkyMine extends JavaPlugin {
 
     @Override
     public void onEnable() {
