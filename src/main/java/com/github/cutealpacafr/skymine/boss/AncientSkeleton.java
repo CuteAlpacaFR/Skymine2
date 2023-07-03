@@ -30,54 +30,62 @@ public class AncientSkeleton implements CommandExecutor, Listener {
     private final Plugin _plugin = SkyMine.getInstance();
     private int _hitCounter = 0;
 
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if (commandSender instanceof Player player) {
-            player.getWorld().spawn(player.getLocation(), WitherSkeleton.class, Sheep1 -> {
-                Sheep1.setCustomName("§4☠ §c✦Ancient Skeleton✦ §4☠");
-                Objects.requireNonNull(Sheep1.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(/*Value Here*/ 400);
-                Objects.requireNonNull(Sheep1.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(/*Value Here*/ 20);
-                Objects.requireNonNull(Sheep1.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(/*Value Here*/ 0.4);
-                Objects.requireNonNull(Sheep1.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(/*Value Here*/ 2101221122);
-                ItemStack helmet = new ItemStack(Material.WITHER_SKELETON_SKULL);
-                ItemMeta meta4 = helmet.getItemMeta();
-                assert meta4 != null;
-                meta4.setDisplayName(ChatColor.BLUE + "Titan's Helmet");
-                ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
-                LeatherArmorMeta meta = (LeatherArmorMeta) chestplate.getItemMeta();
-                assert meta != null;
-                meta.setColor(Color.BLACK);
-                meta.setUnbreakable(true);
-                meta.setDisplayName(ChatColor.BLUE + "Titan's Chest-plate");
-                ItemStack legging = new ItemStack(Material.LEATHER_LEGGINGS);
-                LeatherArmorMeta meta2 = (LeatherArmorMeta) legging.getItemMeta();
-                assert meta2 != null;
-                meta2.setColor(Color.WHITE);
-                meta2.setUnbreakable(true);
-                meta2.setDisplayName(ChatColor.BLUE + "Titan's Legging");
-                ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
-                LeatherArmorMeta meta3 = (LeatherArmorMeta) boots.getItemMeta();
-                assert meta3 != null;
-                meta3.setColor(Color.BLACK);
-                meta3.setUnbreakable(true);
-                meta3.setDisplayName(ChatColor.BLUE + "Titan's Boots");
-                chestplate.setItemMeta(meta);
-                legging.setItemMeta(meta2);
-                boots.setItemMeta(meta3);
-                Objects.requireNonNull(Sheep1.getEquipment()).setChestplate(chestplate);
-                Sheep1.getEquipment().setLeggings(legging);
-                Sheep1.getEquipment().setBoots(boots);
-                Sheep1.getEquipment().setHelmet(helmet);
-                Sheep1.setHealth(400);
-                Sheep1.addScoreboardTag("id:AS");
-                Sheep1.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_SWORD));
-                Sheep1.setCustomNameVisible(true);
-                player.sendMessage("§4§l▲!WARNING!▲: §cThis bosses is still in test");
-                player.sendMessage("§4§l▲!WARNING!▲: §cThe boss is now still in test folder - TEST.3.AncientSkeleton");
-                player.sendMessage("§4§l▲!WARNING!▲: §cTEST.3.AncientSkeleton is uncontrolled, Please be careful while Executing or Spawning this bosses");
-                Sheep1.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, Sheep1.getLocation(), 1);
-            });
-        }
-    return true;}
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if (!(sender instanceof Player player)) return false;
+
+        World world = player.getWorld();
+
+        world.spawn(player.getLocation(), WitherSkeleton.class, boss -> {
+            boss.setCustomName("§4☠ §c✦Ancient Skeleton✦ §4☠");
+            Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(/*Value Here*/ 400);
+            Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(/*Value Here*/ 20);
+            Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(/*Value Here*/ 0.4);
+            Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(/*Value Here*/ 2101221122);
+
+            ItemStack helmet = new ItemStack(Material.WITHER_SKELETON_SKULL);
+            ItemMeta meta4 = helmet.getItemMeta();
+            assert meta4 != null;
+            meta4.setDisplayName(ChatColor.BLUE + "Titan's Helmet");
+
+            ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+            LeatherArmorMeta meta = (LeatherArmorMeta) chestplate.getItemMeta();
+            assert meta != null;
+            meta.setColor(Color.BLACK);
+            meta.setUnbreakable(true);
+            meta.setDisplayName(ChatColor.BLUE + "Titan's Chest-plate");
+
+            ItemStack legging = new ItemStack(Material.LEATHER_LEGGINGS);
+            LeatherArmorMeta meta2 = (LeatherArmorMeta) legging.getItemMeta();
+            assert meta2 != null;
+            meta2.setColor(Color.WHITE);
+            meta2.setUnbreakable(true);
+            meta2.setDisplayName(ChatColor.BLUE + "Titan's Legging");
+
+            ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+            LeatherArmorMeta meta3 = (LeatherArmorMeta) boots.getItemMeta();
+            assert meta3 != null;
+            meta3.setColor(Color.BLACK);
+            meta3.setUnbreakable(true);
+            meta3.setDisplayName(ChatColor.BLUE + "Titan's Boots");
+
+            chestplate.setItemMeta(meta);
+            legging.setItemMeta(meta2);
+            boots.setItemMeta(meta3);
+            Objects.requireNonNull(boss.getEquipment()).setChestplate(chestplate);
+            boss.getEquipment().setLeggings(legging);
+            boss.getEquipment().setBoots(boots);
+            boss.getEquipment().setHelmet(helmet);
+            boss.setHealth(400);
+            boss.addScoreboardTag("id:AS");
+            boss.getEquipment().setItemInMainHand(new ItemStack(Material.STONE_SWORD));
+            boss.setCustomNameVisible(true);
+            player.sendMessage("§4§l▲!WARNING!▲: §cThis bosses is still in test");
+            player.sendMessage("§4§l▲!WARNING!▲: §cThe boss is now still in test folder - TEST.3.AncientSkeleton");
+            player.sendMessage("§4§l▲!WARNING!▲: §cTEST.3.AncientSkeleton is uncontrolled, Please be careful while Executing or Spawning this bosses");
+            world.spawnParticle(Particle.EXPLOSION_HUGE, boss.getLocation(), 1);
+        });
+        return true;
+    }
 
 
     @EventHandler
