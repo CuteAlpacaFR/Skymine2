@@ -1,6 +1,6 @@
-name: Test
+name: SkyMine
 version: '${project.version}'
-main: test.test.Test
+main: com.github.cutealpacafr.skymine.SkyMine
 api-version: 1.18
 commands:
   kit:
