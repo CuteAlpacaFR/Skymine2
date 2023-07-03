@@ -13,26 +13,22 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
-//where tf
-public class OnCommand implements CommandExecutor, Listener {
+public class Kit implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        System.out.println("debug1");
-        if (sender instanceof Player) {
-            System.out.println("debug2");
-            Player player = (Player) sender;
-            ItemStack IronSword = new ItemStack(Material.IRON_SWORD);
-            ItemStack IronHelm = new ItemStack(Material.IRON_HELMET);
-            ItemStack IronChest = new ItemStack(Material.IRON_CHESTPLATE);
-            ItemStack IronLeg = new ItemStack(Material.IRON_LEGGINGS);
-            ItemStack IronBoots = new ItemStack(Material.IRON_BOOTS);
-            ItemStack GAP = new ItemStack(Material.GOLDEN_APPLE);
-            GAP.setAmount(2);
-            player.getInventory().addItem(IronSword, IronHelm, IronChest, IronLeg, IronBoots, GAP);
-            return true;
-        }
-        return false;
+        if (!(sender instanceof Player player)) return false;
+
+        ItemStack sword = new ItemStack(Material.IRON_SWORD);
+        ItemStack helmet = new ItemStack(Material.IRON_HELMET);
+        ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
+        ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
+        ItemStack boots = new ItemStack(Material.IRON_BOOTS);
+        ItemStack gapple = new ItemStack(Material.GOLDEN_APPLE);
+        gapple.setAmount(2);
+        player.getInventory().addItem(sword, helmet, chestplate, leggings, boots, gapple);
+        return true;
     }
+
     @EventHandler
     public void blockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().hasPermission("OP"))
