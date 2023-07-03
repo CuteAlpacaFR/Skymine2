@@ -1,5 +1,6 @@
 package com.github.cutealpacafr.skymine.boss;
 
+import com.github.cutealpacafr.skymine.SkyMine;
 import com.github.cutealpacafr.skymine.util.NotNull;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -26,13 +27,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class AncientSkeleton implements CommandExecutor, Listener {
-    private final Plugin _plugin;
+    private final Plugin _plugin = SkyMine.getInstance();
     private int _hitCounter = 0;
-
-    public AncientSkeleton(Plugin plugin) {
-        super();
-        this._plugin = plugin;
-    }
 
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
