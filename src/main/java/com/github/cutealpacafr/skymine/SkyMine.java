@@ -1,11 +1,9 @@
 package com.github.cutealpacafr.skymine;
 
-import com.github.cutealpacafr.skymine.boss.AncientSkeleton;
-import com.github.cutealpacafr.skymine.boss.Skilra;
-import com.github.cutealpacafr.skymine.boss.Titan;
-import com.github.cutealpacafr.skymine.boss.ZoneWarrior;
+import com.github.cutealpacafr.skymine.boss.*;
 import com.github.cutealpacafr.skymine.command.Kit;
 import com.github.cutealpacafr.skymine.equipment.weapon.Sword;
+import com.github.cutealpacafr.skymine.util.RealTNT;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -38,8 +36,14 @@ public final class SkyMine extends JavaPlugin {
         Objects.requireNonNull(getCommand("ac")).setExecutor(new AncientSkeleton());
         getServer().getPluginManager().registerEvents(new AncientSkeleton(), this);
 
-        Objects.requireNonNull(getCommand("Skilra")).setExecutor(new Skilra(this));
-        getServer().getPluginManager().registerEvents(new Skilra(this), this);
+        Objects.requireNonNull(getCommand("Skilra")).setExecutor(new Skilra());
+        getServer().getPluginManager().registerEvents(new Skilra(), this);
+
+        Objects.requireNonNull(getCommand("TD")).setExecutor(new TheDupe());
+        getServer().getPluginManager().registerEvents(new TheDupe(), this);
+        Objects.requireNonNull(getCommand("SE")).setExecutor(new SoulEater());
+        getServer().getPluginManager().registerEvents(new SoulEater(), this);
+        getServer().getPluginManager().registerEvents(new RealTNT(), this);
     }
 
     @Override

@@ -24,3 +24,9 @@ commands:
   Skilra:
     description: SKilllllra
     usage: /Skilra
+  TD:
+    description: the dupe!
+    usage: /TD
+  SE:
+    description: se
+    usage: /SE

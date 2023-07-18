@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class Kit implements CommandExecutor, Listener {
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (!(sender instanceof Player player)) return false;
@@ -23,9 +24,9 @@ public class Kit implements CommandExecutor, Listener {
         ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
         ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
         ItemStack boots = new ItemStack(Material.IRON_BOOTS);
-        ItemStack gapple = new ItemStack(Material.GOLDEN_APPLE);
-        gapple.setAmount(2);
-        player.getInventory().addItem(sword, helmet, chestplate, leggings, boots, gapple);
+        ItemStack grapple = new ItemStack(Material.GOLDEN_APPLE);
+        grapple.setAmount(2);
+        player.getInventory().addItem(sword, helmet, chestplate, leggings, boots, grapple);
         return true;
     }
 

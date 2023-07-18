@@ -29,6 +29,7 @@ import java.util.Objects;
 public class AncientSkeleton implements CommandExecutor, Listener {
     private final Plugin _plugin = SkyMine.getInstance();
     private int _hitCounter = 0;
+    @SuppressWarnings("NullableProblems")
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (!(sender instanceof Player player)) return false;
@@ -110,7 +111,6 @@ public class AncientSkeleton implements CommandExecutor, Listener {
 
         // Increment hit counter
         _hitCounter++;
-
         // Every hit, set player on fire and give them blindness for 100 ticks
         player.setFireTicks(100);
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 1));
@@ -156,12 +156,11 @@ public class AncientSkeleton implements CommandExecutor, Listener {
             });
 
             // ----- 2 SHEEP MINIONS -----
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 2; i++ )
                 world.spawn(bossLoc, WitherSkeleton.class, sheep -> {
                     sheep.setCustomName("§4⚔ ▸Ancient Skeleton's Minion◂ ⚔");
                     sheep.setCustomNameVisible(true);
                 });
-            }
         }
 
         // Every 30 hits
@@ -181,7 +180,7 @@ public class AncientSkeleton implements CommandExecutor, Listener {
             }
 
             // Spawn primed TNT above player
-            player.getWorld().createExplosion(1,1,2,2);
+            player.getWorld().createExplosion(1, 1, 2, 2);
         }
     }
 
@@ -202,7 +201,7 @@ public class AncientSkeleton implements CommandExecutor, Listener {
         if (!(Objects.equals(hurt.getCustomName(), "§4☠ §c✦Ancient Skeleton✦ §4☠"))) return;
 
         // Return if attacker is not a Player
-        if (!(attacker instanceof Player player)) return;
+        if (!(attacker instanceof Player)) return;
 
         // ---------- MAIN LOGIC ----------
         // Only run main logic after passing guard clauses above
@@ -212,6 +211,7 @@ public class AncientSkeleton implements CommandExecutor, Listener {
         // When boss health is lower than 200, increase strength
         if (bossHealth <= 100) {
             Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)).setBaseValue(30);
+            Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(1);
             ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
             LeatherArmorMeta meta = (LeatherArmorMeta) chestplate.getItemMeta();
             assert meta != null;
@@ -237,8 +237,6 @@ public class AncientSkeleton implements CommandExecutor, Listener {
             boss.getEquipment().setLeggings(legging);
             boss.getEquipment().setBoots(boots);
             boss.getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_HOE));
-            attacker.sendMessage("§r§7Oh no!, the boss seems enraged!");
-            player.sendMessage("§4☠ §c✦Ancient Skeleton✦ §4☠: §cURGGGGHHHHH ENOUGH! DIE LITTLE BART.");
             Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(/*Value Here*/ 1);
         }
         // like this? yes!
@@ -249,7 +247,7 @@ public class AncientSkeleton implements CommandExecutor, Listener {
         if (!e.getEntity().getScoreboardTags().contains("id:AS")) return;
         e.getDrops().clear();
         Entity attacker = e.getEntity().getKiller();
-        attacker.sendMessage("§4☠ §c✦Ancient Skeleton✦ §4☠: §cFinally I've been released from this time prison, I am free... Why the way forward is so brightness? So.. many questions....");
+        Objects.requireNonNull(attacker).sendMessage("§4☠ §c✦Ancient Skeleton✦ §4☠: §cFinally I've been released from this time prison, I am free... Why the way forward is so brightness? So.. many questions....");
         ItemStack item = new ItemStack(Material.CHARCOAL);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
@@ -257,7 +255,7 @@ public class AncientSkeleton implements CommandExecutor, Listener {
         meta.setDisplayName(ChatColor.GOLD + "Ancient Skeleton's brain");
         item.setItemMeta(meta);
         attacker.getWorld().dropItemNaturally(e.getEntity().getLocation(), item);
-        }
+    }
 
 
     @SafeVarargs

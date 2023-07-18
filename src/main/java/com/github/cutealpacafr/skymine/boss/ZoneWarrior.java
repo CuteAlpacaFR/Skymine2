@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class ZoneWarrior implements CommandExecutor, Listener {
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command command, @NotNull String s, String[] strings) {
         if (Sender instanceof Player player) {
@@ -78,7 +79,7 @@ public class ZoneWarrior implements CommandExecutor, Listener {
         ItemStack item = new ItemStack(Material.BEETROOT);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        meta.setLore(toArrayList("§r§7A heart that even still beating without any other boody piece","§r§7Somehow this heart is very hard that used to craft armor","§r§7And its beating so fast that gains energy when you're holding it" ));
+        meta.setLore(toArrayList("§r§7A heart that even still beating without any other body piece","§r§7Somehow this heart is very hard that used to craft armor","§r§7And its beating so fast that gains energy when you're holding it" ));
         meta.setDisplayName(ChatColor.GOLD + "Zone Warrior's Heart");
         item.setItemMeta(meta);
         e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), item);

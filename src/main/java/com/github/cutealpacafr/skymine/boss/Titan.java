@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Titan implements CommandExecutor, Listener {
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
