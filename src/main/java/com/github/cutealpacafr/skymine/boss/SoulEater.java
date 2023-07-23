@@ -29,6 +29,7 @@ import java.util.Random;
 import static java.util.Objects.requireNonNull;
 
 public class SoulEater extends JavaPlugin implements CommandExecutor, Listener {
+    public int _hitCounter = 0;
 
     @SuppressWarnings("NullableProblems")
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
@@ -53,7 +54,7 @@ public class SoulEater extends JavaPlugin implements CommandExecutor, Listener {
         return true;
     }
 
-    private int _hitCounter = 0;
+
 
     @EventHandler
     public void onDamagePlayer(EntityDamageByEntityEvent e) {

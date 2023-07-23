@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -28,6 +29,7 @@ import java.util.Random;
 public class Skilra implements CommandExecutor, Listener {
     private final Plugin _plugin = SkyMine.getInstance();
     private int _hitCounter = 0;
+
     @SuppressWarnings("NullableProblems")
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
@@ -103,24 +105,23 @@ public class Skilra implements CommandExecutor, Listener {
 
         // Increment hit counter
         _hitCounter++;
-
         // Every hit, set player on fire and give them blindness for 100 ticks
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 2));
 
-        World world = player.getWorld();
-
         // Skilra explosion
         if (_hitCounter % 10 == 0) {
-            player.getWorld().spawn(player.getLocation(), TNTPrimed.class, Sheep1 -> {
-                Sheep1.setFuseTicks(0);
-                attacker.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 2);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 255));
-                player.setVelocity(new Vector(0, 6, 0));
-        // Delay messages by 1 second (20 ticks)
+        Objects.requireNonNull(player.getLocation().getWorld()).spawnParticle(Particle.EXPLOSION_HUGE, player.getLocation(), 50, 0, 0,0);
+        attacker.getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 2);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 255));
+        player.setVelocity(new Vector(0, 6, 0));
+        player.damage(10);
+                        // Delay messages by 1 second (20 ticks)
         Bukkit.getScheduler().runTaskLater(_plugin, () -> {
             player.sendMessage("§4}☠{ §c✪S k i l r a✪ §4}☠{: §cOnce I smash the ground the world trembles.");
             player.sendMessage("§7Ancient Skeleton smashes the ground!!");
         }, 20);
+    }
+
         // Every 20 hits
         if (_hitCounter % 20 == 0)
             // Spawn more minions
@@ -133,8 +134,8 @@ public class Skilra implements CommandExecutor, Listener {
         Location blockloc2 = player.getLocation().add(0, 1, 0);
         Location blockloc3 = player.getLocation().add(0, 0, 0);
         Location wallloc0 = player.getLocation().add(1, 0, 0);
-        Location wallloc = player.getLocation().add(0, 2, 1);
-        Location wallloc2 = player.getLocation().add(-1, 1, 0);
+        Location wallloc = player.getLocation().add(0, 0, 1);
+        Location wallloc2 = player.getLocation().add(-1, 0, 0);
         Location wallloc3 = player.getLocation().add(0, 0, -1);
         if (blockloc.getBlock().getType().equals(Material.AIR))
             blockloc.getBlock().setType(Material.NETHER_QUARTZ_ORE);
@@ -145,13 +146,13 @@ public class Skilra implements CommandExecutor, Listener {
         if (blockloc3.getBlock().getType().equals(Material.AIR))
             blockloc3.getBlock().setType(Material.NETHER_WART_BLOCK);
         if (wallloc2.getBlock().getType().equals(Material.AIR))
-            wallloc2.getBlock().setType(Material.NETHER_WART_BLOCK);
+            wallloc2.getBlock().setType(Material.RED_NETHER_BRICK_WALL);
         if (wallloc3.getBlock().getType().equals(Material.AIR))
-            wallloc3.getBlock().setType(Material.NETHER_WART_BLOCK);
+            wallloc3.getBlock().setType(Material.RED_NETHER_BRICK_WALL);
         if (wallloc.getBlock().getType().equals(Material.AIR))
-            wallloc.getBlock().setType(Material.NETHER_WART_BLOCK);
+            wallloc.getBlock().setType(Material.RED_NETHER_BRICK_WALL);
         if (wallloc0.getBlock().getType().equals(Material.AIR))
-            wallloc0.getBlock().setType(Material.NETHER_WART_BLOCK);
+            wallloc0.getBlock().setType(Material.RED_NETHER_BRICK_WALL);
         player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 60, 10));
         Bukkit.getScheduler().runTaskLater(_plugin, () -> {
             if (blockloc.getBlock().getType().equals(Material.NETHER_QUARTZ_ORE))
@@ -171,7 +172,7 @@ public class Skilra implements CommandExecutor, Listener {
             if (wallloc0.getBlock().getType().equals(Material.RED_NETHER_BRICK_WALL))
                 wallloc0.getBlock().setType(Material.AIR);
             boss.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 20, 10));
-            player.sendMessage("§4☠ §c✦Ancient Skeleton✦ §4☠: §cThe Pillars! Awaken from sleep.");
+            player.sendMessage("§4}☠{ §c✪S k i l r a✪ §4}☠{: §cThe Pillars! Awaken from sleep.");
             player.sendMessage("§7Skilra summoned pillars!!");
 
         }, 60);
@@ -179,7 +180,8 @@ public class Skilra implements CommandExecutor, Listener {
         // Every 30 hits
         if (_hitCounter % 30 == 0) {
             // Want timer delay?
-            boss.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 99999, 254));
+            World world = player.getWorld();
+            boss.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 99999, 254));
             world.spawn(boss.getLocation(), WitherSkeleton.class, sheep -> {
                 sheep.setCustomName("§dSkilra's Core");
                 Objects.requireNonNull(sheep.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(100);
@@ -189,28 +191,27 @@ public class Skilra implements CommandExecutor, Listener {
                 sheep.setCustomNameVisible(true);
                 sheep.setHealth(100);
                 sheep.setAI(false);
+                sheep.setInvisible(true);
                 ItemStack helmet2 = new ItemStack(Material.REDSTONE_BLOCK);
+                ItemStack air = new ItemStack(Material.AIR);
                 ItemMeta meta4 = helmet2.getItemMeta();
                 assert meta4 != null;
                 meta4.setDisplayName(ChatColor.BLUE + "Titan's Helmet");
                 Objects.requireNonNull(sheep.getEquipment()).setHelmet(helmet2);
+                sheep.getEquipment().setItemInMainHand(air);
                 // Become unable to move for a few seconds (jump included)
                 player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 10, 29);
                 Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(/*Value Here*/ 0.5);
-                double CoreHealth = sheep.getHealth();
-
                 // When boss health is lower than 200, increase strength
-                if (CoreHealth <= 0) {
-                    boss.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0, 255));
+                if (sheep.isDead()) {
+                    boss.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
                     Objects.requireNonNull(boss.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(/*Value Here*/ 0.25);
                     boss.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 2));
-                }
-            });
-        }
-    });
-        }
-    }
 
+            }
+        });
+    }
+}
 
 
     @EventHandler
@@ -271,6 +272,7 @@ public class Skilra implements CommandExecutor, Listener {
         }
         // like this? yes!
     }
+
     @EventHandler
     private void onDeath(EntityDeathEvent e) {
         if (!e.getEntity().getScoreboardTags().contains("id:Skilra")) return;
@@ -306,5 +308,10 @@ public class Skilra implements CommandExecutor, Listener {
     @SafeVarargs
     private <T> ArrayList<T> toArrayList(T... obj) {
         return new ArrayList<>(Arrays.asList(obj));
+    }
+    @EventHandler
+    public void onExplode(EntityExplodeEvent event) {
+        if (event instanceof TNTPrimed)
+            event.setCancelled(true);
     }
 }

@@ -30,3 +30,12 @@ commands:
   SE:
     description: se
     usage: /SE
+  levi:
+    description: leo should kims
+    usage: /levi
+  TE:
+    description: aragorn is bald
+    usage: /TE
+  VD:
+    description: filperrrr
+    usage: /VD
